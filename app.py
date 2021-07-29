@@ -58,6 +58,25 @@ def jogar(palavra):
                 if "_" not in palavra_incompleta:
                     advinhou = True
 
+        #Tentativa de palpite palavra completa
+
+        elif len(palpite) == len(palavra) and palpite.isalpha():
+
+            #Palavra Ja utilizada
+            if palpite in palavras_utilizadas:
+                print("Você ja digitou essa palavra", palpite)
+            
+            #Palavra errada
+            elif palpite != palavra:
+                print("A palavra",palpite,"esta incorreta.")
+                tentativas -= 1
+                palavras_utilizadas.append(palpite)
+            
+            #Palavra certa
+            else:
+                advinhou = True
+                palavra_incompleta = palavra
+                print("Você acertou!")
         #Tentativa inválida
         else:
             print("Palpite inválido, try again!")
@@ -151,5 +170,8 @@ def exibirForca(tentativas):
 def inicioJogo():
     palavra = selecionarPalavra()
     jogar(palavra)
+    
+    while input("jogar novamente? (s/n)").upper() == "S":
+        jogar(palavra)
 
 inicioJogo()
