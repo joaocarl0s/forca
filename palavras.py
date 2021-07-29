@@ -1,4 +1,4 @@
-palavra = ["Gemido", 
+palavras = ["Gemido", 
             "Anao", 
             "Totem", 
             "Taberna", 
