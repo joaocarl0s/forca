@@ -30,6 +30,47 @@ def jogar(palavra):
         palpite = input("Digite uma palavra ou letra para continuar: ").upper()
         print(palpite)
 
+        #Tentativa de letra única.
+        #Verificando se a tentativa é uma letra única.
+
+        if len(palpite) == 1 and palpite.isalpha():
+            #Validando se a letra ja foi usada.
+            if palpite in letras_utilizadas:
+                print("Você ja utilizou essa letra antes: ", palpite)
+
+            #Validando se ela não esta na palavra.
+            elif palpite not in palavra:
+                print("A letra",palpite,"não está na palavra")
+                tentativas -= 1
+                letras_utilizadas.append(palpite)
+            #Quando a letra está na palavra?
+            else:
+                print("Você acertou! A letra", palpite ,"esta na palavra")
+                letras_utilizadas.append(palpite)
+                #Transformar a palavra em lista.
+                palavra_lista = list(palavra_incompleta)
+                #Valida onde pode substitutuir o underline baseado na letra que foi passada.
+                indices = [i for i, letra in enumerate(palavra) if letra == palpite]
+                for indice in indices:
+                    palavra_lista[indice] = palpite
+                palavra_incompleta = "".join(palavra_lista)
+
+                if "_" not in palavra_incompleta:
+                    advinhou = True
+
+        #Tentativa inválida
+        else:
+            print("Palpite inválido, try again!")
+        
+        #Exibir o status do jogo.
+        print(exibirForca(tentativas))
+        print(palavra_incompleta)
+
+    #Finaliza o jogo se o usuario venceu ou acabaram as tentativas
+    if advinhou:
+        print("Parabéns! Você adivinhou")
+    else:
+        print("Acabaram as chances.. A palavra era", palavra)
 #Status do jogo
 def exibirForca(tentativas):
     estagios = [# Fim de jogo
